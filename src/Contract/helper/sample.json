@@ -1,0 +1,184 @@
+{
+  "policyName": "Human",
+  "productId": "human",
+  "insuredObject": [
+    {
+      "object_id": "object_id_human",
+      "steps": [
+        {
+          "step_id": "object_info",
+          "config": [
+            {
+              "group_id": "object_info",
+              "schema": [
+                {
+                  "fieldId": "text_full_name",
+                  "type": "text-field",
+                  "defaultValue": "",
+                  "uiSize": "shrink"
+                },
+                {
+                  "fieldId": "date_of_birth",
+                  "type": "date-picker",
+                  "defaultValue": "",
+                  "uiSize": "shrink"
+                },
+                {
+                  "fieldId": "text_gender",
+                  "type": "select",
+                  "uiSize": "shrink",
+                  "options": [
+                    { "content": "male", "id": "male" },
+                    { "content": "female", "id": "female" }
+                  ]
+                },
+                {
+                  "fieldId": "number_id_passport",
+                  "type": "number",
+                  "uiSize": "shrink"
+                },
+                {
+                  "fieldId": "date_of_issue",
+                  "type": "date-picker",
+                  "defaultValue": "",
+                  "uiSize": "shrink"
+                },
+                {
+                  "fieldId": "text_place_of_issue",
+                  "type": "text-field",
+                  "defaultValue": "",
+                  "uiSize": "shrink"
+                },
+                {
+                  "fieldId": "text_relationship_to_buyer",
+                  "type": "select",
+                  "uiSize": "shrink",
+                  "options": [
+                    { "content": "Self", "id": "Self" },
+                    { "content": "Spouse", "id": "Spouse" },
+                    { "content": "Children", "id": "Children" }
+                  ],
+                  "placeholder": "Self|Spouse|Children",
+                  "defaultValue": ""
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "step_id": "package",
+          "config": [
+            {
+              "group_id": "term_general_info",
+              "schema": [
+                {
+                  "fieldId": "text_package",
+                  "type": "select",
+                  "options": [
+                    { "content": "Golden", "id": "Golden" },
+                    { "content": "Silver", "id": "Silver" },
+                    { "content": "Bronze", "id": "Bronze" }
+                  ],
+                  "placeholder": "Golden|Silver|Bronze"
+                },
+                { "fieldId": "text_start_date", "type": "date-picker" },
+                { "fieldId": "text_end_date", "type": "date-picker" }
+              ]
+            },
+            {
+              "group_id": "mandatory_benefit_text",
+              "schema": [
+                {
+                  "fieldId": "mandatory_benefit_text",
+                  "type": "multi-checkbox",
+                  "options": [
+                    { "id": "benefit_1" },
+                    { "id": "benefit_2" },
+                    { "id": "benefit_3" }
+                  ],
+                  "defaultValue": ["benefit_1", "benefit_2", "benefit_3"]
+                }
+              ]
+            },
+            {
+              "group_id": "additional_benefit_text",
+              "schema": [
+                {
+                  "fieldId": "additional_benefit_text",
+                  "type": "multi-checkbox",
+                  "options": [
+                    { "id": "opt_benefit_1" },
+                    { "id": "opt_benefit_2" }
+                  ],
+                  "defaultValue": []
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "feeCalucation": {
+        "date_of_birth": {
+          "type": "date-picker",
+          "to": "now",
+          "duration": { "years": 16 }
+        }
+      }
+    }
+  ],
+  "steps": [
+    {
+      "step_id": "buyer_info",
+      "config": [
+        {
+          "group_id": "buyer_info",
+          "schema": [
+            {
+              "fieldId": "text_full_name",
+              "type": "text-field",
+              "defaultValue": "",
+              "uiSize": "shrink"
+            },
+            {
+              "fieldId": "date_of_birth",
+              "type": "date-picker",
+              "defaultValue": "",
+              "uiSize": "shrink"
+            },
+            {
+              "fieldId": "text_gender",
+              "type": "select",
+              "uiSize": "shrink",
+              "options": [
+                { "content": "male", "id": "male" },
+                { "content": "female", "id": "female" }
+              ]
+            },
+            {
+              "fieldId": "number_id_passport",
+              "type": "number",
+              "uiSize": "shrink"
+            },
+            {
+              "fieldId": "date_of_issue",
+              "type": "date-picker",
+              "defaultValue": "",
+              "uiSize": "shrink"
+            },
+            {
+              "fieldId": "text_place_of_issue",
+              "type": "text-field",
+              "defaultValue": "",
+              "uiSize": "shrink"
+            },
+            {
+              "fieldId": "text_address",
+              "type": "text-field",
+              "defaultValue": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
