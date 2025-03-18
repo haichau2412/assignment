@@ -18,7 +18,7 @@ const PolicyCreate = () => {
 
   useEffect(() => {
     const onImport = () => {
-
+      
       setPolicySchema(guestDataManager.getAllPolicySchema());
     };
 

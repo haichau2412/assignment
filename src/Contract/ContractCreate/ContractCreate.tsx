@@ -10,6 +10,8 @@ import { useReducer } from "react";
 import { SavedPolicy } from "../helper/storage";
 import { useEffect, memo } from "react";
 import InsuredObjectTable from "../sharedUI/InsuredObjectList";
+import { ErrorBoundary } from "react-error-boundary";
+import FallbackBoundary from "../sharedUI/FallbackBoundary";
 
 type Action = { type: "UPDATE_DATA"; payload: Record<string, any> };
 const policyReducer = (state: SavedPolicy, action: Action): SavedPolicy => {
@@ -48,7 +50,7 @@ export const NewContract = memo(({ schemaId }: NewContractProps) => {
   }, [state]);
 
   const JSONData: JSONSchema = guestDataManager.getPolicySchemaById(schemaId);
-  
+
   const productSchemaHelper = createSchemaHelper(JSONData);
 
   const data = useStepper({
@@ -125,9 +127,11 @@ export const NewContract = memo(({ schemaId }: NewContractProps) => {
   };
 
   return (
-    <Box sx={{ width: " 100%" }}>
-      <Stepper {...data} />
-      {renderView()}
-    </Box>
+    <ErrorBoundary FallbackComponent={FallbackBoundary}>
+      <Box sx={{ width: " 100%" }}>
+        <Stepper {...data} />
+        {renderView()}
+      </Box>
+    </ErrorBoundary>
   );
 });

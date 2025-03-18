@@ -56,7 +56,7 @@ const addPolicySchema = (newPolicySchema: JSONSchema, policyName: string) => {
     _policySchema.push(newPolicy)
     setLocalStorage(LOCAL_POLICY_SCHEMA, _policySchema)
 
-    emitter.emit('new-policy')
+    emitter.emit('new-policy') 
     
 };
 
