@@ -1,44 +1,61 @@
-import {
-  Config as SelectConfig,
-  BUILDER_ID as SelectBuilderId,
-} from "./Select";
-
-import {
-  Config as DatePickerConfig,
-  BUILDER_ID as DatePickerBuilderId,
-} from "./DatePicker";
-
-import {
-  Config as NumberConfig,
-  BUILDER_ID as NumberBuilderId,
-} from "./Number";
-
-import {
-  Config as TextfieldConfig,
-  BUILDER_ID as TextfieldBuilderId,
-} from "./TextField";
-
-import {
-  Config as MultiCheckboxConfig,
-  BUILDER_ID as MultiCheckboxBuilderId,
-} from "./MultiCheckBox";
 import dayjs from "dayjs";
-
 import { z, ZodObject, ZodRawShape } from "zod";
 
+export const ElementBuilderId = {
+  multiCheckbox: "multi-checkbox",
+  textfield: "text-field",
+  number: "number",
+  select: "select",
+  datePicker: "date-picker",
+} as const;
+
+export interface SelectConfig {
+  type: typeof ElementBuilderId.select;
+  options: { content: string; id: string }[];
+  fieldId: string;
+  defaultValue?: string;
+  placeholder?: string;
+}
+
+export interface DatePickerConfig {
+  type: typeof ElementBuilderId.datePicker;
+  fieldId: string;
+  defaultValue?: string;
+}
+
+export interface NumberConfig {
+  type: typeof ElementBuilderId.number;
+  fieldId: string;
+  defaultValue?: number;
+}
+
+export interface TextfieldConfig {
+  type: typeof ElementBuilderId.textfield;
+  fieldId: string;
+  defaultValue?: string;
+}
+
+export interface MultiCheckboxConfig {
+  type: typeof ElementBuilderId.multiCheckbox;
+  options: { id: string; option?: Record<string, any> }[];
+  fieldId: string;
+  unCheckable?: boolean;
+  defaultValue?: string[];
+}
+
 interface TextFree {
-  type: typeof TextfieldBuilderId;
+  type: typeof ElementBuilderId.textfield;
   match: string;
 }
 
 interface NumberFree {
-  type: typeof NumberBuilderId;
+  type: typeof ElementBuilderId.number;
   match?: number;
   range?: [number, number];
 }
 
 interface Date {
-  type: typeof DatePickerBuilderId;
+  type: typeof ElementBuilderId.datePicker;
   to?: { years?: number; months?: number } | "now";
   form?: { years?: number; months?: number };
   duration: { years?: number; months?: number };
@@ -48,13 +65,9 @@ export interface MandatoryFeeRule {
   [fieldId: string]: TextFree | NumberFree | Date;
 }
 
-export {
-  SelectBuilderId,
-  DatePickerBuilderId,
-  NumberBuilderId,
-  TextfieldBuilderId,
-  MultiCheckboxBuilderId,
-};
+interface ElementLayoutConfig {
+  uiSize?: "shrink";
+}
 
 export type SchemaData = (
   | SelectConfig
@@ -62,9 +75,8 @@ export type SchemaData = (
   | NumberConfig
   | TextfieldConfig
   | MultiCheckboxConfig
-) & {
-  uiSize?: "shrink";
-};
+) &
+  ElementLayoutConfig;
 
 export type GroupSchema = {
   group_id: string;
@@ -121,37 +133,26 @@ const createZodSchema = (groupSchema: GroupSchema[]) => {
 
   groupSchema.forEach(({ schema }) => {
     schema.forEach((d) => {
-      if (
-        ![
-          DatePickerBuilderId,
-          TextfieldBuilderId,
-          SelectBuilderId,
-          NumberBuilderId,
-          MultiCheckboxBuilderId,
-        ].includes(d.type)
-      ) {
+      if (!Object.values(ElementBuilderId).includes(d.type)) {
         throw new Error(`Unknown builder type: ${d.type}`);
       }
 
-      if (d.type === DatePickerBuilderId) {
+      if (d.type === ElementBuilderId.datePicker) {
         addSchema(_createDatePicker(d));
         // defaultValue[d.fieldId] = new Date();
         // return;
       }
-      if (d.type === TextfieldBuilderId) {
+      if (d.type === ElementBuilderId.textfield) {
         addSchema(_createTextField(d));
       }
-      if (d.type === SelectBuilderId) {
+      if (d.type === ElementBuilderId.select) {
         addSchema(_createSelect(d));
       }
-      // if (d.type === SliderBuilderId) {
-      //   addSchema(_createSlider(d));
-      // }
 
-      if (d.type === NumberBuilderId) {
+      if (d.type === ElementBuilderId.number) {
         addSchema(_createNumber(d));
       }
-      if (d.type === MultiCheckboxBuilderId) {
+      if (d.type === ElementBuilderId.multiCheckbox) {
         addSchema(_createMultiCheckBox(d));
         defaultValue[d.fieldId] = d.defaultValue || [];
         return;

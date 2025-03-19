@@ -54,10 +54,3 @@ const FormTextField = ({ name, uiSize, isNumber }: TextFieldProps) => {
 
 export default FormTextField;
 
-export const BUILDER_ID = "text-field";
-
-export interface Config {
-  type: typeof BUILDER_ID;
-  fieldId: string;
-  defaultValue?: string;
-}

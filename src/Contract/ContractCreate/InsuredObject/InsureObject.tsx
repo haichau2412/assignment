@@ -179,9 +179,9 @@ function ChildModal({
   onConfirm: () => void;
   open: boolean;
 }) {
-  const handleClose = () => {
-    setOpen1(false);
-  };
+  // const handleClose = () => {
+  //   setOpen1(false);
+  // };
 
   return (
     <>
@@ -216,7 +216,7 @@ const InsuredObjectModal = ({
   insuredObjectId,
 }: InsuredObjectModal) => {
   const [openChildModal, setOpenChildModal] = useState(false);
-  const [newId, setNewId] = useState(uuid());
+  const [newId, _setNewId] = useState(uuid());
   const [state, dispatch] = useReducer(insuredObjectReducer, {});
 
   const productSchemaHelper = useMemo(() => {

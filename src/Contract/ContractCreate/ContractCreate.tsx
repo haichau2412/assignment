@@ -37,7 +37,13 @@ interface NewContractProps {
   schemaId: string;
 }
 
-export const NewContract = memo(({ schemaId }: NewContractProps) => {
+const NewContractView = ({
+  contractSchema,
+  schemaId,
+}: {
+  schemaId: string;
+  contractSchema: JSONSchema;
+}) => {
   const { state, updateData } = useContract({
     contractId: uuid(),
     contractName: `createdAt ${Date.now()}`,
@@ -49,9 +55,7 @@ export const NewContract = memo(({ schemaId }: NewContractProps) => {
     guestDataManager.updateSavedContract(state.contractId, state);
   }, [state]);
 
-  const JSONData: JSONSchema = guestDataManager.getPolicySchemaById(schemaId);
-
-  const productSchemaHelper = createSchemaHelper(JSONData);
+  const productSchemaHelper = createSchemaHelper(contractSchema);
 
   const data = useStepper({
     steps: productSchemaHelper.getGeneralSteps(),
@@ -84,7 +88,7 @@ export const NewContract = memo(({ schemaId }: NewContractProps) => {
           sx={{ width: " 100%", alignItems: "flex-end" }}
         >
           <SearchAddInsuredObject
-            policySchema={JSONData}
+            policySchema={contractSchema}
             onSubmit={onSubmit}
             dataSet={productSchemaHelper.getInsuredObjectProductList()}
           />
@@ -133,5 +137,20 @@ export const NewContract = memo(({ schemaId }: NewContractProps) => {
         {renderView()}
       </Box>
     </ErrorBoundary>
+  );
+};
+
+export const NewContract = memo(({ schemaId }: NewContractProps) => {
+  const JSONData: JSONSchema | undefined =
+    guestDataManager.getPolicySchemaById(schemaId);
+
+  return (
+    <>
+      {JSONData ? (
+        <NewContractView schemaId={schemaId} contractSchema={JSONData} />
+      ) : (
+        <div>Can't not find schema config for {schemaId}</div>
+      )}
+    </>
   );
 });

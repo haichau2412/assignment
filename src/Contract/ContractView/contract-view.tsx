@@ -6,45 +6,55 @@ import { useStepper, Stepper } from "../../libs/formBuilder/UI/Stepper";
 import FormChildrenGenerator from "../../libs/formBuilder/UI/FormChildrenBuilder";
 import { JSONSchema } from "../../libs/formBuilder/helper/policySchemaParser";
 import { createSchemaHelper } from "../../libs/formBuilder/helper/policySchemaParser";
-import { useState } from "react";
+import { useState, memo } from "react";
 
 interface ViewContractProps {
   contractId: string;
 }
 
-const ViewContract = ({ contractId }: ViewContractProps) => {
-  const insuredData = guestDataManager.getSavedContract(contractId);
-  const insuredObject = insuredData?.data?.insured_object;
+const ViewContract = memo(({ contractId }: ViewContractProps) => {
+  const renderView = () => {
+    const insuredData = guestDataManager.getSavedContract(contractId);
+    const insuredObject = insuredData?.data?.insured_object;
 
-  const JSONData: JSONSchema = guestDataManager.getPolicySchemaById(
-    insuredData?.policySchemaId
-  );
-  const productSchemaHelper = createSchemaHelper(JSONData);
+    if (insuredData) {
+      const JSONData: JSONSchema | undefined =
+        guestDataManager.getPolicySchemaById(insuredData?.policySchemaId);
 
-  const data = useStepper({
-    steps: productSchemaHelper.getGeneralSteps(true),
-  });
+      if (JSONData) {
+        const productSchemaHelper = createSchemaHelper(JSONData);
 
-  return (
-    <Box sx={{ width: " 100%", maxHeight: "50vh" }}>
-      <Stepper {...data} />
+        const data = useStepper({
+          steps: productSchemaHelper.getGeneralSteps(true),
+        });
 
-      {data.active === "insured_object" ? (
-        <>
-          {insuredObject?.length > 0 && (
-            <InsuredObjectTable tableData={insuredObject} />
-          )}
-        </>
-      ) : (
-        <FormChildrenGenerator
-          schema={productSchemaHelper.getGeneralStepSchema(data.active)}
-          value={insuredData?.data[data.active]}
-          readOnly={true}
-        />
-      )}
-    </Box>
-  );
-};
+        return (
+          <Box sx={{ width: " 100%", maxHeight: "50vh" }}>
+            <Stepper {...data} />
+
+            {data.active === "insured_object" ? (
+              <>
+                {insuredObject?.length > 0 && (
+                  <InsuredObjectTable tableData={insuredObject} />
+                )}
+              </>
+            ) : (
+              <FormChildrenGenerator
+                schema={productSchemaHelper.getGeneralStepSchema(data.active)}
+                value={insuredData?.data[data.active]}
+                readOnly={true}
+              />
+            )}
+          </Box>
+        );
+      }
+    }
+
+    return <div>No content</div>;
+  };
+
+  return <>{renderView()}</>;
+});
 
 export const ContractView = () => {
   const [contractId, setContractId] = useState<string | null>(null);

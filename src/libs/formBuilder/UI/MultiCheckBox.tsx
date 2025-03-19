@@ -2,16 +2,6 @@ import { FormControlLabel, Checkbox, FormGroup, Grid2 } from "@mui/material";
 import { useFormContext } from "./useFormContext";
 import { getText } from "../../i18n/en";
 
-export const BUILDER_ID = "multi-checkbox";
-
-export interface Config {
-  type: typeof BUILDER_ID;
-  options: { id: string; option?: Record<string, any> }[];
-  fieldId: string;
-  unCheckable?: boolean;
-  defaultValue?: string[];
-}
-
 interface MultiCheckboxProps {
   name: string;
   readOnly?: boolean;

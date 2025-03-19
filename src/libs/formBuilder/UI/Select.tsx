@@ -75,13 +75,3 @@ const ContractSelect = ({
 };
 
 export default ContractSelect;
-
-export const BUILDER_ID = "select";
-
-export interface Config {
-  type: typeof BUILDER_ID;
-  options: { content: string; id: string }[];
-  fieldId: string;
-  defaultValue?: string;
-  placeholder?: string;
-}

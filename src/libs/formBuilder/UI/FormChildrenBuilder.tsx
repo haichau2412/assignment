@@ -5,11 +5,7 @@ import MultiCheckbox from "./MultiCheckBox";
 
 import createZodSchema, {
   GroupSchema,
-  SelectBuilderId,
-  DatePickerBuilderId,
-  NumberBuilderId,
-  TextfieldBuilderId,
-  MultiCheckboxBuilderId,
+  ElementBuilderId,
 } from "./schemaBuilder";
 import Form from "./Form";
 import { Button, Grid2, Typography } from "@mui/material";
@@ -36,7 +32,7 @@ const CreateChildrenComponent = ({
           </Grid2>
 
           {schema.map((data) => {
-            if (data.type === SelectBuilderId) {
+            if (data.type === ElementBuilderId.select) {
               return (
                 <Select
                   uiSize={data.uiSize}
@@ -48,7 +44,7 @@ const CreateChildrenComponent = ({
                 />
               );
             }
-            if (data.type === DatePickerBuilderId) {
+            if (data.type === ElementBuilderId.datePicker) {
               return (
                 <DataPicker
                   uiSize={data.uiSize}
@@ -60,7 +56,7 @@ const CreateChildrenComponent = ({
             // if (data.type === SliderBuilderId) {
             //   return <Slider uiSize={data.uiSize} key={data.fieldId} />;
             // }
-            if (data.type === NumberBuilderId) {
+            if (data.type === ElementBuilderId.textfield) {
               return (
                 <FormTextField
                   isNumber={true}
@@ -70,7 +66,7 @@ const CreateChildrenComponent = ({
                 />
               );
             }
-            if (data.type === TextfieldBuilderId) {
+            if (data.type === ElementBuilderId.number) {
               return (
                 <FormTextField
                   uiSize={data.uiSize}
@@ -79,7 +75,7 @@ const CreateChildrenComponent = ({
                 />
               );
             }
-            if (data.type === MultiCheckboxBuilderId) {
+            if (data.type === ElementBuilderId.multiCheckbox) {
               return (
                 <MultiCheckbox
                   unCheckable={data.unCheckable}

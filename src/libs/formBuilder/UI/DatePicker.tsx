@@ -50,10 +50,3 @@ const DatePicker = ({ name, uiSize }: ContractDatePickerProps) => {
 
 export default DatePicker;
 
-export const BUILDER_ID = "date-picker";
-
-export interface Config {
-  type: typeof BUILDER_ID;
-  fieldId: string;
-  defaultValue?: string;
-}

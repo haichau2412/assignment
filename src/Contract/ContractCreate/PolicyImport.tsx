@@ -6,7 +6,7 @@ import { JSONSchema } from "../../libs/formBuilder/helper/policySchemaParser";
 
 const PolicyImport = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [fileContent, setFileContent] = useState<string | null>(null);
+  const [fileContent, _setFileContent] = useState<string | null>(null);
 
   const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>
@@ -14,7 +14,7 @@ const PolicyImport = () => {
     const file = event.target.files?.[0];
     if (file) {
       setSelectedFile(file);
-      const readFile = new Promise<string>((resolve, reject) => {
+      const readFile = new Promise<string>((resolve, _reject) => {
         const reader = new FileReader();
         reader.onload = (e) => {
           resolve(e.target?.result as string);
