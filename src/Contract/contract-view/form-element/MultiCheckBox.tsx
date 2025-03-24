@@ -1,6 +1,6 @@
 import { FormControlLabel, Checkbox, FormGroup, Grid2 } from "@mui/material";
 import { useFormContext } from "./useFormContext";
-import { getText } from "../../i18n/en";
+import { getText } from "libs/i18n/en";
 
 interface MultiCheckboxProps {
   name: string;

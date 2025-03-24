@@ -1,4 +1,4 @@
-import { GroupSchema, MandatoryFeeRule } from "../UI/schemaBuilder";
+import { GroupSchema, MandatoryFeeRule } from "./schemaBuilder";
 
 export interface FormConfig {
     step_id: string;

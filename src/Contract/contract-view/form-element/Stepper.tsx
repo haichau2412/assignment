@@ -1,5 +1,5 @@
 import { Stepper as MuiStepper, Step, StepButton } from "@mui/material";
-import { getText } from "../../i18n/en";
+import { getText } from "libs/i18n/en";
 import { useState, useCallback, useRef } from "react";
 
 interface Step {

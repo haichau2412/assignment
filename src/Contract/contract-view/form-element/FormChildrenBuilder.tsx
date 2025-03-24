@@ -2,14 +2,13 @@ import DataPicker from "./DatePicker";
 import Select from "./Select";
 import FormTextField from "./TextField";
 import MultiCheckbox from "./MultiCheckBox";
-
 import createZodSchema, {
   GroupSchema,
   ElementBuilderId,
-} from "./schemaBuilder";
+} from "../../schema/schema-to-form/schemaBuilder";
 import Form from "./Form";
 import { Button, Grid2, Typography } from "@mui/material";
-import { getText } from "../../i18n/en";
+import { getText } from "libs/i18n/en"
 
 interface FormChildrenGeneratorProps {
   schema: GroupSchema[];

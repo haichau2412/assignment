@@ -9,7 +9,7 @@ import Grid from "@mui/material/Grid2";
 
 import { useFormContext } from "./useFormContext";
 import { Controller } from "react-hook-form";
-import { getText } from "../../i18n/en";
+import { getText } from "libs/i18n/en";
 
 interface ContractSelectProps {
   id: string;

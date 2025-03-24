@@ -2,7 +2,7 @@ import { Controller } from "react-hook-form";
 import { TextField } from "@mui/material";
 import { useFormContext } from "./useFormContext";
 import Grid from "@mui/material/Grid2";
-import { getText } from "../../i18n/en";
+import { getText } from "libs/i18n/en";
 
 interface TextFieldProps {
   isNumber?: boolean;

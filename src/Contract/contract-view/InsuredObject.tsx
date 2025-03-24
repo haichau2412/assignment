@@ -9,10 +9,10 @@ import {
   Grid2,
   Modal,
 } from "@mui/material";
-import FormChildrenGenerator from "../../../libs/formBuilder/UI/FormChildrenBuilder";
-import { createSchemaHelper } from "../../../libs/formBuilder/helper/policySchemaParser";
-import { useStepper, Stepper } from "../../../libs/formBuilder/UI/Stepper";
-import { JSONSchema } from "../../../libs/formBuilder/helper/policySchemaParser";
+import FormChildrenGenerator from "./form-element/FormChildrenBuilder";
+import { createSchemaHelper } from "../schema/schema-to-form/policySchemaParser";
+import { useStepper, Stepper } from "./form-element/Stepper";
+import { JSONSchema } from "../schema/schema-to-form/policySchemaParser";
 import { useReducer, useMemo } from "react";
 import { v4 as uuid } from "uuid";
 

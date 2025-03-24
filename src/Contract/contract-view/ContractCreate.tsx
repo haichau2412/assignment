@@ -2,9 +2,10 @@ import PolicyImport from "./PolicyImport";
 import SearchAddPolicy from "./PolicySchemaViewer";
 import { Box } from "@mui/material";
 import guestDataManager from "../helper/storage";
-import { NewContract } from "./ContractCreate";
+import { NewContract } from "./Contract";
 import { useEffect, useState } from "react";
-import { JSONSchema } from "../../libs/formBuilder/helper/policySchemaParser";
+import { JSONSchema } from "../schema/schema-to-form/policySchemaParser";
+
 
 const PolicyCreate = () => {
   const [newContractSchema, setNewContractSchema] = useState<string | null>(

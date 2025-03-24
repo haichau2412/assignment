@@ -1,8 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router";
-import DashboardLayout from "./Dashboard/dashboard-layout";
-import PolicyCreate from "./Contract/ContractCreate/contract-create";
-import DashboardMain from "./Dashboard/dashboard-main";
-import { ContractView } from "./Contract/ContractView/contract-view";
+import DashboardLayout from "dashboard/Layout";
+import PolicyCreate from "contract/contract-view/ContractCreate";
+import DashboardMain from "dashboard/Main";
+import ContractView from "contract/contract-view/ContractView";
 
 const RoutesWrapper = () => {
   return (

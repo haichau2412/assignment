@@ -2,7 +2,7 @@ import { DatePicker as MuiDatePicker } from "@mui/x-date-pickers";
 import { Controller } from "react-hook-form";
 import dayjs from "dayjs";
 import Grid from "@mui/material/Grid2";
-import { getText } from "../../i18n/en";
+import { getText } from "libs/i18n/en";
 import { useFormContext } from "./useFormContext";
 
 interface ContractDatePickerProps {
@@ -13,7 +13,7 @@ interface ContractDatePickerProps {
 
 const DatePicker = ({ name, uiSize }: ContractDatePickerProps) => {
   const { control, readOnly } = useFormContext();
-  console.log("name", name);
+
   return (
     <Grid size={{ xs: uiSize === "shrink" ? 4 : 12 }}>
       <Controller
@@ -49,4 +49,3 @@ const DatePicker = ({ name, uiSize }: ContractDatePickerProps) => {
 };
 
 export default DatePicker;
-

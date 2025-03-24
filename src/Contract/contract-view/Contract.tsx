@@ -1,8 +1,8 @@
-import { useStepper, Stepper } from "../../libs/formBuilder/UI/Stepper";
-import FormChildrenGenerator from "../../libs/formBuilder/UI/FormChildrenBuilder";
-import { JSONSchema } from "../../libs/formBuilder/helper/policySchemaParser";
-import { createSchemaHelper } from "../../libs/formBuilder/helper/policySchemaParser";
-import { SearchAddInsuredObject } from "./InsuredObject/InsureObject";
+import { useStepper, Stepper } from "./form-element/Stepper";
+import FormChildrenGenerator from "./form-element/FormChildrenBuilder";
+import { JSONSchema } from "../schema/schema-to-form/policySchemaParser";
+import { createSchemaHelper } from "../schema/schema-to-form/policySchemaParser";
+import { SearchAddInsuredObject } from "./InsuredObject";
 import { Box, Button, Grid2 } from "@mui/material";
 import guestDataManager from "../helper/storage";
 import { v4 as uuid } from "uuid";

@@ -1,12 +1,12 @@
 import { Box } from "@mui/material";
 import guestDataManager from "../helper/storage";
-import SearchAddPolicy from "../ContractCreate/PolicySchemaViewer";
+import SearchAddPolicy from "./PolicySchemaViewer";
 import InsuredObjectTable from "../sharedUI/InsuredObjectList";
-import { useStepper, Stepper } from "../../libs/formBuilder/UI/Stepper";
-import FormChildrenGenerator from "../../libs/formBuilder/UI/FormChildrenBuilder";
-import { JSONSchema } from "../../libs/formBuilder/helper/policySchemaParser";
-import { createSchemaHelper } from "../../libs/formBuilder/helper/policySchemaParser";
+import FormChildrenGenerator from "./form-element/FormChildrenBuilder";
+import { JSONSchema } from "../schema/schema-to-form/policySchemaParser";
+import { createSchemaHelper } from "../schema/schema-to-form/policySchemaParser";
 import { useState, memo } from "react";
+import { useStepper, Stepper } from "./form-element/Stepper";
 
 interface ViewContractProps {
   contractId: string;
@@ -56,7 +56,7 @@ const ViewContract = memo(({ contractId }: ViewContractProps) => {
   return <>{renderView()}</>;
 });
 
-export const ContractView = () => {
+const ContractView = () => {
   const [contractId, setContractId] = useState<string | null>(null);
   const insuredData = guestDataManager.getAllSavedContract();
 
@@ -75,3 +75,5 @@ export const ContractView = () => {
     </Box>
   );
 };
+
+export default ContractView;

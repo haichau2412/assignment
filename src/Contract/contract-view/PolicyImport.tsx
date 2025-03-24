@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/material";
 import { useState } from "react";
 import PolicySchema from "../helper/import";
 import guestDataManager from "../helper/storage";
-import { JSONSchema } from "../../libs/formBuilder/helper/policySchemaParser";
+import { JSONSchema } from "../schema/schema-to-form/policySchemaParser";
 
 const PolicyImport = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);

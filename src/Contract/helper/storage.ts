@@ -1,5 +1,5 @@
 import { getLocalStorage, setLocalStorage } from "../../libs/localStorage";
-import { JSONSchema } from "../../libs/formBuilder/helper/policySchemaParser";
+import { JSONSchema } from "../../libs/schema/schema-to-form/policySchemaParser";
 import { v4 as uuidv4 } from 'uuid';
 import EventEmitter from "event-emitter";
 

@@ -9,38 +9,72 @@ export const ElementBuilderId = {
   datePicker: "date-picker",
 } as const;
 
-export interface SelectConfig {
-  type: typeof ElementBuilderId.select;
-  options: { content: string; id: string }[];
+interface CommonData {
   fieldId: string;
-  defaultValue?: string;
+  label: string;
+  key: string;
+  defaultValue?: any;
   placeholder?: string;
 }
 
-export interface DatePickerConfig {
+interface SelectValidate {
+  required: boolean;
+}
+
+interface MultiCheckBoxValidate {
+  required: boolean;
+}
+
+interface StringValidate {
+  required: boolean;
+  minLength: number;
+  maxLength: number;
+  pattern?: string;
+}
+
+interface NumberValidate {
+  required: boolean;
+  minLength: number;
+  maxLength: number;
+  pattern?: string;
+}
+
+export interface SelectConfig extends CommonData {
+  type: typeof ElementBuilderId.select;
+  options: { content: string; id: string }[];
+  validation?: SelectValidate;
+}
+
+interface DatePickerValidate {
+  required: boolean;
+  from: string;
+  to: string;
+  duration?: {
+    year?: number;
+    month?: number;
+    day?: number;
+  };
+}
+
+export interface DatePickerConfig extends CommonData {
   type: typeof ElementBuilderId.datePicker;
-  fieldId: string;
-  defaultValue?: string;
+  validate?: DatePickerValidate;
 }
 
-export interface NumberConfig {
+export interface NumberConfig extends CommonData {
   type: typeof ElementBuilderId.number;
-  fieldId: string;
-  defaultValue?: number;
+  validate?: NumberValidate;
 }
 
-export interface TextfieldConfig {
+export interface TextfieldConfig extends CommonData {
   type: typeof ElementBuilderId.textfield;
-  fieldId: string;
-  defaultValue?: string;
+  validation: StringValidate;
 }
 
-export interface MultiCheckboxConfig {
+export interface MultiCheckboxConfig extends CommonData {
   type: typeof ElementBuilderId.multiCheckbox;
   options: { id: string; option?: Record<string, any> }[];
-  fieldId: string;
-  unCheckable?: boolean;
-  defaultValue?: string[];
+  validation: MultiCheckBoxValidate
 }
 
 interface TextFree {
@@ -139,8 +173,6 @@ const createZodSchema = (groupSchema: GroupSchema[]) => {
 
       if (d.type === ElementBuilderId.datePicker) {
         addSchema(_createDatePicker(d));
-        // defaultValue[d.fieldId] = new Date();
-        // return;
       }
       if (d.type === ElementBuilderId.textfield) {
         addSchema(_createTextField(d));
