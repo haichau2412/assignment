@@ -1,0 +1,14 @@
+import DesignFormContextProvider from "./form-design/DesignContextProvider";
+import FormDesign from "./form-design/FormDesign";
+import { DndContext } from "@dnd-kit/core";
+import "./formDesign.css";
+
+export default function App() {
+  return (
+    <DndContext>
+      <DesignFormContextProvider>
+        <FormDesign />
+      </DesignFormContextProvider>
+    </DndContext>
+  );
+}

@@ -23,7 +23,7 @@ const DashboardLayout = () => {
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column" }}>
-      <AppBar position="fixed">
+      {/* <AppBar position="fixed">
         <Toolbar>
           <IconButton
             color="inherit"
@@ -38,7 +38,7 @@ const DashboardLayout = () => {
             Megamind
           </Typography>
         </Toolbar>
-      </AppBar>
+      </AppBar> */}
       <Drawer open={isDrawerOpen} onClose={toggleDrawer}>
         <List>
           <ListItem>
@@ -58,7 +58,7 @@ const DashboardLayout = () => {
           </ListItem>
         </List>
       </Drawer>
-      <Box sx={{ width: "100vw", height: "100vh" }}>
+      <Box sx={{ width: "100vw", height: "100vh", mt: "7rem" }}>
         <Outlet />
       </Box>
     </Box>

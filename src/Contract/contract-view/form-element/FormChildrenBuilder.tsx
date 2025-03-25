@@ -4,11 +4,11 @@ import FormTextField from "./TextField";
 import MultiCheckbox from "./MultiCheckBox";
 import createZodSchema, {
   GroupSchema,
-  ElementBuilderId,
-} from "../../schema/schema-to-form/schemaBuilder";
+} from "../../schema/schema-to-form/schemaToForm";
+import { ElementBuilderId } from "@/contract/schema/schema-builder/types";
 import Form from "./Form";
 import { Button, Grid2, Typography } from "@mui/material";
-import { getText } from "libs/i18n/en"
+import { getText } from "libs/i18n/en";
 
 interface FormChildrenGeneratorProps {
   schema: GroupSchema[];
