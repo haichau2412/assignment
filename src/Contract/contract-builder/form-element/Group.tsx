@@ -1,36 +1,15 @@
-import { useDroppable } from "@dnd-kit/core";
-
-const GroupItemWrapper = ({ groupId }: { groupId: string }) => {
-
-
-
-    
-};
+import { useState } from "react";
 
 interface GroupProps {
   id: string;
   label: string;
+  includedInSchema: boolean;
 }
 
-const Group = ({ id, label = "" }: GroupProps) => {
-  const { setNodeRef, isOver } = useDroppable({ id });
-  console.log("label", label);
+const Group = ({ id, label = "", includedInSchema }: GroupProps) => {
+  const [groupId, setgroupId] = useState<string| null>(null)
 
-  const style = {
-    border: "2px dashed gray",
-    padding: "20px",
-    backgroundColor: isOver ? "lightgreen" : "white",
-  };
-
-  return (
-    <div
-      ref={setNodeRef}
-      style={style}
-      className="w-[100px] h-[100px] bg-amber-600"
-    >
-      <p>Drop Area {id}</p>
-    </div>
-  );
+  return <input type="text" value={id} id={id} />;
 };
 
 export default Group;

@@ -15,14 +15,19 @@ interface FormElementProps {
   isOverlay?: boolean;
 }
 
+export interface MenuItemData {
+  type: string;
+  isMenuItem: true;
+  id: string;
+  label: string;
+}
+
 const MenuItem = ({ id, label, isOverlay }: FormElementProps) => {
   const draggable = useDraggable({
-    id: `element-${id}`,
+    id: `${id}`,
     data: {
-      type: "element",
+      type: id,
       isMenuItem: true,
-      id,
-      label,
     },
   });
 
