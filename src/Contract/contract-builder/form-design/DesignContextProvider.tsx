@@ -1,14 +1,22 @@
-import { createContext } from "react";
+import { createContext, useCallback, useState } from "react";
 import createZustandStore from "./store/useZustandStore";
-import { useCallback } from "react";
 
 type ZustandStore = ReturnType<typeof createZustandStore>;
 
 const zustandStoreMap = new Map<string, ZustandStore>();
 
+interface FormInfo {
+  formId: string;
+  formLabel: string;
+}
+
 interface FormDesignContext {
-  getStore: (id: string) => ZustandStore | null;
-  createStore: (id: string) => void;
+  forms: FormInfo[];
+  addForm: (data: FormInfo) => void;
+  removeFormInfo: (formId: string) => void;
+  updateFormInfo: (data: FormInfo) => void;
+  getStore: (formId: string) => ZustandStore | null;
+  createStore: (formId: string, formLabel: string) => void;
 }
 
 export const DesignFormContext = createContext<FormDesignContext | null>(null);
@@ -18,23 +26,52 @@ const DesignFormContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const getStore = useCallback((id: string): ZustandStore | null => {
-    return zustandStoreMap.get(id) || null;
+  const [forms, setForms] = useState<FormInfo[]>([]);
+
+  const addForm = useCallback((data: FormInfo) => {
+    setForms((prevForms) => [...prevForms, data]);
   }, []);
 
-  const createStore = useCallback((id: string): ZustandStore => {
-    if (!zustandStoreMap.has(id)) {
-      const newStore = createZustandStore({
-        formId: id,
-        formLabel: `Form ${id}`,
-      });
-      zustandStoreMap.set(id, newStore);
-    }
-    return zustandStoreMap.get(id)!;
+  const removeFormInfo = useCallback((formId: string) => {
+    setForms((prevForms) => prevForms.filter((form) => form.formId !== formId));
+    zustandStoreMap.delete(formId);
   }, []);
+
+  const updateFormInfo = useCallback((data: FormInfo) => {
+    setForms((prevForms) =>
+      prevForms.map((form) => (form.formId === data.formId ? data : form))
+    );
+  }, []);
+
+  const getStore = useCallback((formId: string): ZustandStore | null => {
+    return zustandStoreMap.get(formId) || null;
+  }, []);
+
+  const createStore = useCallback(
+    (formId: string, formLabel: string): ZustandStore => {
+      if (!zustandStoreMap.has(formId)) {
+        const newStore = createZustandStore({
+          formId,
+          formLabel,
+        });
+        zustandStoreMap.set(formId, newStore);
+      }
+      return zustandStoreMap.get(formId)!;
+    },
+    []
+  );
 
   return (
-    <DesignFormContext.Provider value={{ getStore, createStore }}>
+    <DesignFormContext.Provider
+      value={{
+        forms,
+        addForm,
+        removeFormInfo,
+        updateFormInfo,
+        getStore,
+        createStore,
+      }}
+    >
       {children}
     </DesignFormContext.Provider>
   );

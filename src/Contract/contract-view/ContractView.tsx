@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import guestDataManager from "../helper/storage";
 import SearchAddPolicy from "./PolicySchemaViewer";
-import InsuredObjectTable from "../sharedUI/InsuredObjectList";
+import InsuredObjectTable from "../sharedui/InsuredObjectList";
 import FormChildrenGenerator from "./form-element/FormChildrenBuilder";
 import { JSONSchema } from "../schema/schema-to-form/policySchemaParser";
 import { createSchemaHelper } from "../schema/schema-to-form/policySchemaParser";

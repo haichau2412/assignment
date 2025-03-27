@@ -4,7 +4,7 @@ interface NormalItem {
   id: string;
   label: string;
   groupId?: string;
-  data: string;
+  data: any;
 }
 
 interface GroupItem {
@@ -30,6 +30,8 @@ type Actions = {
 };
 
 type Store = FormDesignSchema & Actions;
+
+export type StoreType = ReturnType<typeof createStore<Store>>;
 
 const createZustandStore = ({
   formId,

@@ -58,7 +58,6 @@ const CreateChildrenComponent = ({
             if (data.type === ElementBuilderId.textfield) {
               return (
                 <FormTextField
-                  isNumber={true}
                   uiSize={data.uiSize}
                   key={data.fieldId}
                   name={data.fieldId}
@@ -68,6 +67,7 @@ const CreateChildrenComponent = ({
             if (data.type === ElementBuilderId.number) {
               return (
                 <FormTextField
+                isNumber={true}
                   uiSize={data.uiSize}
                   key={data.fieldId}
                   name={data.fieldId}

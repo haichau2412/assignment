@@ -9,9 +9,9 @@ import { v4 as uuid } from "uuid";
 import { useReducer } from "react";
 import { SavedPolicy } from "../helper/storage";
 import { useEffect, memo } from "react";
-import InsuredObjectTable from "../sharedUI/InsuredObjectList";
+import InsuredObjectTable from "../sharedui/InsuredObjectList";
 import { ErrorBoundary } from "react-error-boundary";
-import FallbackBoundary from "../sharedUI/FallbackBoundary";
+import FallbackBoundary from "../sharedui/FallbackBoundary";
 
 type Action = { type: "UPDATE_DATA"; payload: Record<string, any> };
 const policyReducer = (state: SavedPolicy, action: Action): SavedPolicy => {

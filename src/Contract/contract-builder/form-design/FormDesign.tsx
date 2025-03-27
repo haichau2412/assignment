@@ -14,7 +14,7 @@ import MenuSidebar, { DragOverlayWrapper } from "./FormElementMenu";
 import Group from "../form-element/Group";
 import FormElementWrapper from "../form-element/FormElementWrapper";
 import { MenuItemData } from "./FormElementMenu";
-
+import { StoreType } from "./store/useZustandStore";
 interface FormItemProps {
   label: string;
 }
@@ -25,19 +25,41 @@ const FormItem = ({ label }: FormItemProps) => {
 
 const FormItemContainer = () => {};
 
-const FormDesign = () => {
-  const { getStore, createStore } = useDesign();
+export const LoadFormDesign = ({ formId }: { formId: string }) => {
+  const { addForm, forms, getStore, createStore } = useDesign();
+  const formInfo = forms.find((f) => f.formId === formId);
+  const store = getStore(formId);
+
+  useEffect(() => {}, [createStore, store]);
+
+  if (store && formInfo) {
+    return <FormDesign store={store} />;
+  }
+
+  if (!store) {
+    createStore(formId, "dummy");
+  }
+
+  if (!formInfo) {
+    addForm({
+      formId,
+      formLabel: "dummy",
+    });
+  }
+
+  return <div>Loading</div>;
+};
+
+let simpleIndex = 0;
+
+const FormDesign = ({ store }: { store: StoreType }) => {
+  const { formLabel, data, addItem } = store();
   const [dropLocation, setDropLocation] = useState<string | null>(null);
   const [draggedType, setDraggedType] = useState<string | null>(null);
   const [clutched, setClutched] = useState<boolean>(false);
   const finalLocation = useRef<string | null>(null);
   const clutchTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [dragging, setDragging] = useState(false);
-
-  useEffect(() => {
-    createStore("abc");
-  }, [createStore]);
-
 
   useEffect(() => {
     finalLocation.current = dropLocation;
@@ -77,10 +99,16 @@ const FormDesign = () => {
     onDragEnd: (event: DragEndEvent) => {
       const { active, over } = event;
 
-      if (!active || !over) {
+      if (!active || !over || !draggedType) {
         return;
       }
 
+      addItem({
+        id: `${simpleIndex}-${draggedType}`,
+        label: draggedType,
+        type: "group",
+        data: {},
+      });
       setDragging(false);
       setClutched(false);
     },
@@ -126,24 +154,39 @@ const FormDesign = () => {
   const side = locationData?.[1];
 
   return (
-    <main className="flex w-full bg-gray-100 min-h-screen h-screen">
-      <div ref={dropable.setNodeRef} className="bg-blue-500 h-full w-full">
-        <FormElementWrapper
-          id="group"
-          isGroupClutch={id === "group" && clutched}
-          side={side}
-        >
-          <Group id="group" label="group" />
-        </FormElementWrapper>
-        <FormElementWrapper id="group2" side={side}>
-          <Group id="group2" label="group2" />
-        </FormElementWrapper>
+    <>
+      <div>
+        <input type="text" value={formLabel} />
       </div>
-      {dropable.isOver && <div>Overrrdsdsdsd</div>}
-
-      <MenuSidebar />
-      <DragOverlayWrapper />
-    </main>
+      <main className="flex w-full bg-gray-100 min-h-screen h-screen">
+        <div ref={dropable.setNodeRef} className="bg-blue-500 h-full w-full">
+          {data.map((d) => {
+            return (
+              <FormElementWrapper
+                key={d.id}
+                id="group"
+                isGroupClutch={id === "group" && clutched}
+                side={side}
+              >
+                <Group id="group" label="group" />
+              </FormElementWrapper>
+            );
+          })}
+          {/* <FormElementWrapper
+            id="group"
+            isGroupClutch={id === "group" && clutched}
+            side={side}
+          >
+            <Group id="group" label="group" />
+          </FormElementWrapper>
+          <FormElementWrapper id="group2" side={side}>
+            <Group id="group2" label="group2" />
+          </FormElementWrapper> */}
+        </div>
+        <MenuSidebar />
+        <DragOverlayWrapper />
+      </main>
+    </>
   );
 };
 
